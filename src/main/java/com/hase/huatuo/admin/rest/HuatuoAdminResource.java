@@ -79,7 +79,7 @@ public class HuatuoAdminResource {
 
     @PostMapping("/news/save")
     @ApiOperation(value = "saveNews", notes = "save news", httpMethod = "POST")
-    public ResponseEntity<AdminResponse> findNews(@RequestBody NewsInfo newsInfo) {
+    public ResponseEntity<AdminResponse> saveNews(@RequestBody NewsInfo newsInfo) {
         huatuoAdminService.saveNews(newsInfo);
         AdminResponse adminResponse = new AdminResponse();
         adminResponse.setCode(20000);
