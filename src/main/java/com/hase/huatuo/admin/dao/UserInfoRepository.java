@@ -16,4 +16,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,String> {
 
     @Query(value = "select u from UserInfo u where u.appId=?1 and u.openId = ?2")
     List<UserInfo> searchOpenIdRegisterRecord(String appId, String openId);
+
+    void deleteByAppIdAndStaffId(String appId,String staffId);
 }

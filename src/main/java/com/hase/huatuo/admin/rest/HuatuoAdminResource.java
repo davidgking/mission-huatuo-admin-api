@@ -1,13 +1,11 @@
 package com.hase.huatuo.admin.rest;
 
 import com.hase.huatuo.admin.dao.entity.NewsInfo;
+import com.hase.huatuo.admin.dao.entity.UserInfo;
 import com.hase.huatuo.admin.dao.view.NotifyStaffView;
 import com.hase.huatuo.admin.dao.entity.VpnInfo;
 import com.hase.huatuo.admin.model.request.NotifyStaffAddRequest;
-import com.hase.huatuo.admin.model.response.AdminNewsViewResponse;
-import com.hase.huatuo.admin.model.response.AdminNotifyListResponse;
-import com.hase.huatuo.admin.model.response.AdminResponse;
-import com.hase.huatuo.admin.model.response.VpnReportViewResponse;
+import com.hase.huatuo.admin.model.response.*;
 import com.hase.huatuo.admin.service.HuatuoAdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +91,27 @@ public class HuatuoAdminResource {
     public ResponseEntity<AdminResponse> findNews(@PathVariable String id) {
         huatuoAdminService.deleteNews(id);
         AdminResponse adminResponse = new AdminResponse();
+        adminResponse.setCode(20000);
+        return ResponseEntity.ok(adminResponse);
+    }
+
+    @GetMapping("/userInfo/delete/{appId}/{staffId}")
+    @ApiOperation(value = "deleteUser", notes = "delete user", httpMethod = "GET")
+    public ResponseEntity<AdminResponse> deleteUserInfo(@PathVariable String appId,
+                                                        @PathVariable String staffId) {
+        huatuoAdminService.deleteUserInfo(appId,staffId);
+        AdminResponse adminResponse = new AdminResponse();
+        adminResponse.setCode(20000);
+        return ResponseEntity.ok(adminResponse);
+    }
+
+    @GetMapping("/userInfo/fecthList")
+    @ApiOperation(value = "userInfoList", notes = "find all userInfo", httpMethod = "GET")
+    public ResponseEntity<AdminUserInfoResponse> findAllUser(@RequestParam Map<String,Object> map) {
+        List<UserInfo> newsByParms = huatuoAdminService.findAllUser();
+        AdminUserInfoResponse adminResponse = new AdminUserInfoResponse();
+        adminResponse.setItems(newsByParms);
+        adminResponse.setTotal(newsByParms.size());
         adminResponse.setCode(20000);
         return ResponseEntity.ok(adminResponse);
     }

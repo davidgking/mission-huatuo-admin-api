@@ -2,6 +2,7 @@ package com.hase.huatuo.admin.dao.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 
 @Entity()
 @ApiModel(description = "Notify staff")
+@Data
 public class Notify {
     @Id
     @Column(name = "staff_id", nullable = false)
@@ -19,19 +21,19 @@ public class Notify {
     @ApiModelProperty(value = "0", notes = "status", dataType = "java.lang.String")
     private String status;
 
-    public String getStaffId() {
-        return staffId;
-    }
+    @Column(name = "app_id")
+    private String appId;
 
-    public void setStaffId(String staffId) {
-        this.staffId = staffId;
-    }
+    @Column(name = "sms_enable")
+    private String smsEnable;
 
-    public String getStatus() {
-        return status;
-    }
+    @Column(name = "mail_enable")
+    private String mailEnable;
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    @Column(name = "wechat_push_enable")
+    private String wechatPushEnable;
+
+    @Column(name = "enable")
+    private String enable;
+
 }
