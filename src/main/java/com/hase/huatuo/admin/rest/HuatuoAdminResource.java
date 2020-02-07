@@ -3,6 +3,7 @@ package com.hase.huatuo.admin.rest;
 import com.hase.huatuo.admin.dao.entity.NewsInfo;
 import com.hase.huatuo.admin.dao.view.NotifyStaffView;
 import com.hase.huatuo.admin.dao.entity.VpnInfo;
+import com.hase.huatuo.admin.model.response.AdminNewsViewResponse;
 import com.hase.huatuo.admin.model.response.AdminNotifyListResponse;
 import com.hase.huatuo.admin.model.response.AdminResponse;
 import com.hase.huatuo.admin.model.response.VpnReportViewResponse;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@CrossOrigin
 @RestController
 @RequestMapping({"/huatuo-admin/api"})
 public class HuatuoAdminResource {
@@ -66,9 +68,11 @@ public class HuatuoAdminResource {
 
     @GetMapping("/news/fecthList")
     @ApiOperation(value = "newsInfo", notes = "find all News", httpMethod = "GET")
-    public ResponseEntity<AdminResponse> findNews(@RequestParam Map<String,Object> map) {
-        huatuoAdminService.findNewsByParms(map);
-        AdminResponse adminResponse = new AdminResponse();
+    public ResponseEntity<AdminNewsViewResponse> findNews(@RequestParam Map<String,Object> map) {
+        List<NewsInfo> newsByParms = huatuoAdminService.findNewsByParms(map);
+        AdminNewsViewResponse adminResponse = new AdminNewsViewResponse();
+        adminResponse.setItems(newsByParms);
+        adminResponse.setTotal(newsByParms.size());
         adminResponse.setCode(20000);
         return ResponseEntity.ok(adminResponse);
     }

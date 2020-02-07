@@ -13,7 +13,7 @@ public class AdminFilterConfig {
     public FilterRegistrationBean registrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(filter);
-        filterRegistrationBean.addUrlPatterns("/huatuo-admin/api/*");
+        filterRegistrationBean.addUrlPatterns("/huatuo-admin-api/api/*");
         filterRegistrationBean.setName("HuatuoAdminFilter");
         filterRegistrationBean.setOrder(1);
         return filterRegistrationBean;
