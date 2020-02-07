@@ -139,7 +139,7 @@ public class HuatuoAdminService {
 	 */
 	@Transactional
 	public void deleteNews(String id) {
-		newsInfoRepository.deleteById(id);
+		newsInfoRepository.deleteById(Long.parseLong(id));
 	}
 
 
