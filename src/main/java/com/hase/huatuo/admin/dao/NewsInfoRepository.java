@@ -1,6 +1,5 @@
 package com.hase.huatuo.admin.dao;
 
-
 import com.hase.huatuo.admin.dao.entity.NewsInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
