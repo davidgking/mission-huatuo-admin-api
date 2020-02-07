@@ -88,7 +88,7 @@ public class HuatuoAdminResource {
 
     @GetMapping("/news/delete/{id}")
     @ApiOperation(value = "deleteNews", notes = "delete news", httpMethod = "GET")
-    public ResponseEntity<AdminResponse> findNews(@PathVariable String id) {
+    public ResponseEntity<AdminResponse> deleteNews(@PathVariable String id) {
         huatuoAdminService.deleteNews(id);
         AdminResponse adminResponse = new AdminResponse();
         adminResponse.setCode(20000);
