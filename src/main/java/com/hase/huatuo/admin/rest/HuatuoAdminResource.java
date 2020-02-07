@@ -3,6 +3,7 @@ package com.hase.huatuo.admin.rest;
 import com.hase.huatuo.admin.dao.entity.NewsInfo;
 import com.hase.huatuo.admin.dao.view.NotifyStaffView;
 import com.hase.huatuo.admin.dao.entity.VpnInfo;
+import com.hase.huatuo.admin.model.request.NotifyStaffAddRequest;
 import com.hase.huatuo.admin.model.response.AdminNewsViewResponse;
 import com.hase.huatuo.admin.model.response.AdminNotifyListResponse;
 import com.hase.huatuo.admin.model.response.AdminResponse;
@@ -10,6 +11,7 @@ import com.hase.huatuo.admin.model.response.VpnReportViewResponse;
 import com.hase.huatuo.admin.service.HuatuoAdminService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,18 +42,18 @@ public class HuatuoAdminResource {
     @GetMapping("/notify/fetchList")
     @ApiOperation(value = "notifyStaff", notes = "list for notify", httpMethod = "GET")
     public ResponseEntity<AdminNotifyListResponse> queryNotifyStaff(@RequestParam Map<String,Object> map) {
-        List<NotifyStaffView> viewList = huatuoAdminService.findNotifyStaff();
+        Page<NotifyStaffView> viewList = huatuoAdminService.findNotifyStaff(map);
         AdminNotifyListResponse response = new AdminNotifyListResponse();
-        response.setItems(viewList);
-        response.setTotal(viewList.size());
+        response.setData(viewList);
+//        response.setTotal(viewListiewList.size());
         response.setCode(20000);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/notify/save")
     @ApiOperation(value = "SaveNotifyStaff", notes = "save notify", httpMethod = "POST")
-    public ResponseEntity<AdminResponse> saveNotifyStaff(@RequestBody NotifyStaffView notifyStaffView) {
-        huatuoAdminService.saveNotifyStaff(notifyStaffView);
+    public ResponseEntity<AdminResponse> saveNotifyStaff(@RequestBody NotifyStaffAddRequest notifyStaffAddRequest) {
+        huatuoAdminService.saveNotifyStaff(notifyStaffAddRequest);
         AdminResponse response = new AdminResponse();
         response.setCode(20000);
         return ResponseEntity.ok(response);

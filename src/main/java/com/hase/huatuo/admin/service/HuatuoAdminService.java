@@ -2,10 +2,17 @@ package com.hase.huatuo.admin.service;
 
 import com.hase.huatuo.admin.dao.*;
 import com.hase.huatuo.admin.dao.entity.NewsInfo;
+import com.hase.huatuo.admin.dao.entity.Notify;
+import com.hase.huatuo.admin.dao.entity.StaffList;
 import com.hase.huatuo.admin.dao.view.NotifyStaffView;
 import com.hase.huatuo.admin.dao.entity.VpnInfo;
+import com.hase.huatuo.admin.model.request.NotifyStaffAddRequest;
 import com.hase.huatuo.admin.model.request.VpnReportQueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,18 +72,33 @@ public class HuatuoAdminService {
 	 * Query Notify Staff
 	 * @return
 	 */
-	public List<NotifyStaffView> findNotifyStaff() {
-		return notifyStaffListRepository.findAllStaff();
+	public Page<NotifyStaffView> findNotifyStaff(Map<String, Object> map) {
+		Integer page = Integer.parseInt(String.valueOf(map.get("page")));
+		Integer limit = Integer.parseInt(String.valueOf(map.get("limit")));
+		if(page <=0){
+			page = 1;
+		}
+		Sort sort=new Sort(Sort.Direction.ASC,"staffId");
+		Pageable pageable = new PageRequest(page-1,limit,sort);
+		return notifyStaffListRepository.findAllStaff(pageable);
 	}
 
 	/**
 	 * Save Notify Staff
-	 * @param notifyStaffView
-	 */
+     * @param notifyStaffAddRequest
+     */
 	@Transactional
-	public void saveNotifyStaff(NotifyStaffView notifyStaffView) {
-		notifyRepository.save(notifyStaffView.getNotify());
-		staffListRepository.save(notifyStaffView.getStaffList());
+	public void saveNotifyStaff(NotifyStaffAddRequest notifyStaffAddRequest) {
+		Notify notify = new Notify();
+		notify.setStaffId(notifyStaffAddRequest.getStaffId());
+		notify.setStatus(notifyStaffAddRequest.getStatus());
+		notifyRepository.save(notify);
+
+		StaffList staffList = new StaffList();
+		staffList.setStaffId(notifyStaffAddRequest.getStaffId());
+		staffList.setEmailAddress(notifyStaffAddRequest.getEmailAddress());
+		staffList.setMobileNum(notifyStaffAddRequest.getMobileNum());
+		staffListRepository.save(staffList);
 	}
 
 	/**
