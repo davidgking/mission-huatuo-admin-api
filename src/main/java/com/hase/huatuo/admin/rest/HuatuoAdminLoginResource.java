@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 
+@CrossOrigin
 @RestController
 @RequestMapping({"/huatuo-admin/api","/api"})
 @Slf4j
