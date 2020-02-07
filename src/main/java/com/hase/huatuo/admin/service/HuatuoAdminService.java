@@ -137,6 +137,7 @@ public class HuatuoAdminService {
 	 * Delete news
 	 * @param id
 	 */
+	@Transactional
 	public void deleteNews(String id) {
 		newsInfoRepository.deleteById(id);
 	}
@@ -146,6 +147,7 @@ public class HuatuoAdminService {
 		return userInfoRepository.findAll();
 	}
 
+	@Transactional
 	public void deleteUserInfo(String appId,String staffId) {
 		userInfoRepository.deleteByAppIdAndStaffId(appId,staffId);
 	}
