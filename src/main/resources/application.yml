@@ -1,0 +1,98 @@
+wx:
+  miniapp:
+    configs:
+        #haseIT
+      - appid: wx9812117be87d24d2
+        secret: d86b70d7565f479efabc98b12434f679
+        token:
+        aesKey:
+        msgDataFormat: JSON
+        #hacn
+      - appid: wxf60257610325b729
+        secret: 982860fa2a00708062119fd49983e9be
+        token:
+        aesKey:
+        msgDataFormat: JSON
+server:
+  servlet:
+    context-path: /huatuo-admin-api
+---
+app:
+  database: HUATUO-TEST
+spring:
+  profiles: test
+  mail:
+    username: huatuo_hase_admin@163.com
+    host: smtp.163.com
+    password: hase0804
+    port: 25
+    mail:
+      smtp:
+        auth: true
+      starttls:
+        enable: true
+        required: true
+      subject:
+        "[CoV Emergency Message] New Reported Case of Coronavirus"
+  sms:
+    host: 47.106.180.164:8080
+    path: /sms/sendSmsByTemplet
+    key: abd84853c6299f97
+    template:
+      register-verify: SMS_182840777
+      alert-health-report: SMS_183200260
+  datasource:
+    url: jdbc:mysql://gz-cdb-en9qzhyj.sql.tencentcdb.com:60484/${app.database}?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: rbwm@123
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+server:
+  port: 7777
+  tomcat:
+    max-threads: 200
+    max-connections: 200
+    connection-timeout: 3000
+
+---
+app:
+  database: HUATUO
+spring:
+  profiles: prod
+  mail:
+    username: huatuo_hase_admin@163.com
+    host: smtp.163.com
+    password: hase0804
+    port: 25
+    mail:
+      smtp:
+        auth: true
+      starttls:
+        enable: true
+        required: true
+      subject:
+        "[CoV Emergency Message] New Reported Case of Coronavirus"
+  sms:
+    host: 47.106.180.164:8080
+    path: /sms/sendSmsByTemplet
+    key: abd84853c6299f97
+    template:
+      register-verify: SMS_182840777
+      alert-health-report: SMS_183200260
+  datasource:
+    url: jdbc:mysql://gz-cdb-en9qzhyj.sql.tencentcdb.com:60484/${app.database}?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: rbwm@123
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 6666
+  tomcat:
+    max-threads: 200
+    max-connections: 200
+    connection-timeout: 3000
