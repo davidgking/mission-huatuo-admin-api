@@ -15,7 +15,7 @@ public interface NotifyStaffListRepository extends JpaRepository<Notify,String> 
 
     @Query("SELECT new com.hase.huatuo.admin.dao.view.NotifyStaffView(n,s) from" +
             " Notify n , com.hase.huatuo.admin.dao.entity.StaffList s " +
-            " where n.staffId = s.staffId order by ?#{#pageable}")
-    Page<NotifyStaffView> findAllStaff(Pageable pageable);
+            " where n.staffId = s.staffId and n.appId = ?1 order by ?#{#pageable}")
+    Page<NotifyStaffView> findAllStaff(String appId, Pageable pageable);
 
 }

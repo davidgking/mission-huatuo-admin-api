@@ -17,4 +17,14 @@ public class NotifyStaffAddRequest {
     private String emailAddress;
 
     private String status;
+
+    private String enable;
+
+    private String appId;
+
+    private String smsEnable;
+
+    private String mailEnable;
+
+    private String wechatPushEnable;
 }

@@ -1,11 +1,8 @@
 package com.hase.huatuo.admin.service;
 
 import com.hase.huatuo.admin.dao.*;
-import com.hase.huatuo.admin.dao.entity.NewsInfo;
-import com.hase.huatuo.admin.dao.entity.Notify;
-import com.hase.huatuo.admin.dao.entity.StaffList;
+import com.hase.huatuo.admin.dao.entity.*;
 import com.hase.huatuo.admin.dao.view.NotifyStaffView;
-import com.hase.huatuo.admin.dao.entity.VpnInfo;
 import com.hase.huatuo.admin.model.request.NotifyStaffAddRequest;
 import com.hase.huatuo.admin.model.request.VpnReportQueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,9 @@ public class HuatuoAdminService {
 
 	@Autowired
 	private StaffListRepository staffListRepository;
+
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 
 	/**
 	 * Query Vpn Info
@@ -75,12 +75,13 @@ public class HuatuoAdminService {
 	public Page<NotifyStaffView> findNotifyStaff(Map<String, Object> map) {
 		Integer page = Integer.parseInt(String.valueOf(map.get("page")));
 		Integer limit = Integer.parseInt(String.valueOf(map.get("limit")));
+		String appId = String.valueOf(map.get("appId"));
 		if(page <=0){
 			page = 1;
 		}
 		Sort sort=new Sort(Sort.Direction.ASC,"staffId");
 		Pageable pageable = new PageRequest(page-1,limit,sort);
-		return notifyStaffListRepository.findAllStaff(pageable);
+		return notifyStaffListRepository.findAllStaff(appId,pageable);
 	}
 
 	/**
@@ -92,6 +93,11 @@ public class HuatuoAdminService {
 		Notify notify = new Notify();
 		notify.setStaffId(notifyStaffAddRequest.getStaffId());
 		notify.setStatus(notifyStaffAddRequest.getStatus());
+		notify.setAppId(notifyStaffAddRequest.getAppId());
+		notify.setEnable(notifyStaffAddRequest.getEnable());
+		notify.setMailEnable(notifyStaffAddRequest.getMailEnable());
+		notify.setSmsEnable(notifyStaffAddRequest.getSmsEnable());
+		notify.setWechatPushEnable(notifyStaffAddRequest.getWechatPushEnable());
 		notifyRepository.save(notify);
 
 		StaffList staffList = new StaffList();
@@ -133,5 +139,14 @@ public class HuatuoAdminService {
 	 */
 	public void deleteNews(String id) {
 		newsInfoRepository.deleteById(id);
+	}
+
+
+	public List<UserInfo> findAllUser() {
+		return userInfoRepository.findAll();
+	}
+
+	public void deleteUserInfo(String appId,String staffId) {
+		userInfoRepository.deleteByAppIdAndStaffId(appId,staffId);
 	}
 }
