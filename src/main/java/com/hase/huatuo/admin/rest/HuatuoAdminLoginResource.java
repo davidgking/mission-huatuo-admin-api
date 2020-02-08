@@ -3,6 +3,8 @@ package com.hase.huatuo.admin.rest;
 
 import com.hase.huatuo.admin.model.response.AdminLoginResponse;
 import com.hase.huatuo.admin.model.response.AdminUserResponse;
+import com.hase.huatuo.admin.utils.LoginConstant;
+import com.hase.huatuo.admin.utils.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +25,11 @@ public class HuatuoAdminLoginResource {
     @ApiOperation(value = "user", notes = "login user", httpMethod = "GET")
     public ResponseEntity<AdminLoginResponse> login(@RequestParam Map<String,String> map) {
         AdminLoginResponse adminLoginResponse = new AdminLoginResponse();
-        if (isLoginSucess(map)) {
+        LoginUser loginUser = isLoginSucess(map);
+        if (loginUser != null) {
             adminLoginResponse.setCode(20000);
-            adminLoginResponse.setToken(TOKEN);
+            adminLoginResponse.setToken(TOKEN); // 以后根据用户生成token
+            adminLoginResponse.setAppId(loginUser.getAppId());
             log.info("User {} login successful", map.get("username"));
         } else {
             adminLoginResponse.setCode(60204);
@@ -39,30 +43,17 @@ public class HuatuoAdminLoginResource {
      * @param map
      * @return
      */
-    public Boolean isLoginSucess(Map<String,String> map) {
-
-        // 用户名和密码顺序一一对应
-        String [] userArr = new String[]{"admin","test"};
-        String [] passArr = new String[]{"111111","222222"};
-
-        Boolean isLoginSucess = false;
+    public LoginUser isLoginSucess(Map<String,String> map) {
         String username = map.get("username");
         String password = map.get("password");
 
-        Boolean ifCorrectUser = false;
-        Integer arrIndex = 0;
-        for (int i = 0; i < userArr.length; i++) {
-            String user = userArr[i];
-            if (username.equalsIgnoreCase(user)){
-                ifCorrectUser = true;
-                arrIndex = i;
-                break;
+        for (String key : LoginConstant.ROLE_ADMIN.keySet()) {
+            LoginUser loginUser = LoginConstant.ROLE_ADMIN.get(key);
+            if (key.equalsIgnoreCase(username) && loginUser.getPassword().equals(password)) {
+                return loginUser;
             }
         }
-        if (ifCorrectUser && passArr[arrIndex].equals(password)) {
-            isLoginSucess = true;
-        }
-        return isLoginSucess;
+        return null;
     }
 
     @GetMapping("/user/info/{token}")

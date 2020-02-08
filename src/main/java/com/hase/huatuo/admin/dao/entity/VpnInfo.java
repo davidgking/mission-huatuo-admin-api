@@ -2,6 +2,7 @@ package com.hase.huatuo.admin.dao.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Entity()
 @IdClass(VpnInfo.VpnInfoKey.class)
 @ApiModel(description = "DO of VPN state info")
+@Data
 public class VpnInfo {
     @Id
     @Column(name = "staff_id", nullable = false)
@@ -72,166 +74,9 @@ public class VpnInfo {
     private String reporterStaffId;
     @Column(name = "last_update_datetime")
     private Date lastUpdateDatetime;
+    @Column(name = "app_id")
+    private String appId;
 
-    public String getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(String staffId) {
-        this.staffId = staffId;
-    }
-
-    public String getVpnType() {
-        return vpnType;
-    }
-
-    public void setVpnType(String vpnType) {
-        this.vpnType = vpnType;
-    }
-
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getIsp() {
-        return isp;
-    }
-
-    public void setIsp(String isp) {
-        this.isp = isp;
-    }
-
-    public String getLinkType() {
-        return linkType;
-    }
-
-    public void setLinkType(String linkType) {
-        this.linkType = linkType;
-    }
-
-    public String getBandWidth() {
-        return bandWidth;
-    }
-
-    public void setBandWidth(String bandWidth) {
-        this.bandWidth = bandWidth;
-    }
-
-    public String getHadRebootADSL() {
-        return hadRebootADSL;
-    }
-
-    public void setHadRebootADSL(String hadRebootADSL) {
-        this.hadRebootADSL = hadRebootADSL;
-    }
-
-    public String getSymptom() {
-        return symptom;
-    }
-
-    public void setSymptom(String symptom) {
-        this.symptom = symptom;
-    }
-
-    public String getOutlookSlow() {
-        return outlookSlow;
-    }
-
-    public void setOutlookSlow(String outlookSlow) {
-        this.outlookSlow = outlookSlow;
-    }
-
-    public String getJabberSlow() {
-        return jabberSlow;
-    }
-
-    public void setJabberSlow(String jabberSlow) {
-        this.jabberSlow = jabberSlow;
-    }
-
-    public String getSametimeSlow() {
-        return sametimeSlow;
-    }
-
-    public void setSametimeSlow(String sametimeSlow) {
-        this.sametimeSlow = sametimeSlow;
-    }
-
-    public String getVideoConferenceSlow() {
-        return videoConferenceSlow;
-    }
-
-    public void setVideoConferenceSlow(String videoConferenceSlow) {
-        this.videoConferenceSlow = videoConferenceSlow;
-    }
-
-    public String getSharepointSharedFolderSlow() {
-        return sharepointSharedFolderSlow;
-    }
-
-    public void setSharepointSharedFolderSlow(String sharepointSharedFolderSlow) {
-        this.sharepointSharedFolderSlow = sharepointSharedFolderSlow;
-    }
-
-    public String getHasOtherApplicationsSlow() {
-        return hasOtherApplicationsSlow;
-    }
-
-    public void setHasOtherApplicationsSlow(String hasOtherApplicationsSlow) {
-        this.hasOtherApplicationsSlow = hasOtherApplicationsSlow;
-    }
-
-    public String getOtherSlowApplications() {
-        return otherSlowApplications;
-    }
-
-    public void setOtherSlowApplications(String otherSlowApplications) {
-        this.otherSlowApplications = otherSlowApplications;
-    }
-
-    public String getHasSomeApplicationsCannotAccess() {
-        return hasSomeApplicationsCannotAccess;
-    }
-
-    public void setHasSomeApplicationsCannotAccess(String hasSomeApplicationsCannotAccess) {
-        this.hasSomeApplicationsCannotAccess = hasSomeApplicationsCannotAccess;
-    }
-
-    public String getCannotAccessApplications() {
-        return cannotAccessApplications;
-    }
-
-    public void setCannotAccessApplications(String cannotAccessApplications) {
-        this.cannotAccessApplications = cannotAccessApplications;
-    }
-
-    public String getReporterStaffId() {
-        return reporterStaffId;
-    }
-
-    public void setReporterStaffId(String reporterStaffId) {
-        this.reporterStaffId = reporterStaffId;
-    }
-
-    public Date getLastUpdateDatetime() {
-        return lastUpdateDatetime;
-    }
-
-    public void setLastUpdateDatetime(Date lastUpdateDatetime) {
-        this.lastUpdateDatetime = lastUpdateDatetime;
-    }
 
     public static class VpnInfoKey implements Serializable {
 

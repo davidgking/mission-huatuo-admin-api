@@ -18,4 +18,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,String> {
     List<UserInfo> searchOpenIdRegisterRecord(String appId, String openId);
 
     void deleteByAppIdAndStaffId(String appId,String staffId);
+
+    List<UserInfo> findAllByAppId(String appId);
 }

@@ -35,6 +35,17 @@ public class HuatuoAdminResource {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/healthHacn/fetchList")
+    @ApiOperation(value = "healthHacn", notes = "query healthHacn", httpMethod = "GET")
+    public ResponseEntity<AdminResponse> queryHealthHacn(@RequestParam Map<String,Object> map) {
+        List<HealthInfoHACN> list = huatuoAdminService.queryHealthHacn(map);
+        AdminResponse response = new AdminResponse();
+        response.setItems(list);
+        response.setTotal(list.size());
+        response.setCode(20000);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/notify/fetchList")
     @ApiOperation(value = "notifyStaff", notes = "list for notify", httpMethod = "GET")
     public ResponseEntity<AdminNotifyListResponse> queryNotifyStaff(@RequestParam Map<String,Object> map) {
@@ -106,7 +117,7 @@ public class HuatuoAdminResource {
     @GetMapping("/userInfo/fecthList")
     @ApiOperation(value = "userInfoList", notes = "find all userInfo", httpMethod = "GET")
     public ResponseEntity<AdminResponse> findAllUser(@RequestParam Map<String,Object> map) {
-        List<UserInfo> newsByParms = huatuoAdminService.findAllUser();
+        List<UserInfo> newsByParms = huatuoAdminService.findAllUser(map);
         AdminResponse adminResponse = new AdminResponse();
         adminResponse.setItems(newsByParms);
         adminResponse.setTotal(newsByParms.size());
@@ -132,8 +143,8 @@ public class HuatuoAdminResource {
 
     @GetMapping("/notifySwitch/fecthList")
     @ApiOperation(value = "notifySwitchListy", notes = "find notifySwitch List", httpMethod = "GET")
-    public ResponseEntity<AdminResponse> findNotifySwitch() {
-        List<NotifySwitch> notifySwitchList = huatuoAdminService.findAllNotifySwitch();
+    public ResponseEntity<AdminResponse> findNotifySwitch(@RequestParam Map<String,Object> map) {
+        List<NotifySwitch> notifySwitchList = huatuoAdminService.findAllNotifySwitch(map);
         AdminResponse adminResponse = new AdminResponse();
         adminResponse.setItems(notifySwitchList);
         adminResponse.setTotal(notifySwitchList.size());

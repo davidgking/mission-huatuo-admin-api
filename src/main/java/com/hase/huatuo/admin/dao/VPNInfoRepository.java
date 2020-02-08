@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface VPNInfoRepository extends JpaRepository<VpnInfo,String> {
-    @Query(value = "select v.open_id, v.staff_Id, v.location, " +
+    @Query(value = "select v.app_id, v.open_id, v.staff_Id, v.location, " +
             "case " +
                 "when v.isp='1' then '中国电信 China Telecom' " +
                 "when v.isp='2' then '中国移动 China Mobile' " +
@@ -61,20 +61,20 @@ public interface VPNInfoRepository extends JpaRepository<VpnInfo,String> {
             "v.other_slow_applications, " +
             "v.cannot_access_applications, " +
             "v.reporter_staff_id, " +
-//            "v.havePc, " +
-//            "v.haveToken, " +
-//            "v.other, " +
-//            "v.vpnLocal, " +
-//            "v.vpnSate, " +
             "v.last_update_datetime " +
             "from vpn_info v " +
-            "where (?1 is null or v.staff_Id = ?1) and v.staff_Id is not null " +
+            "where  (?1 is null or v.staff_Id = ?1) and v.staff_Id is not null " +
             "and (?2 is null or v.location like ?2) and v.location is not null " +
             "and (?3 is null or v.isp = ?3) and v.isp is not null " +
             "and (?4 is null or v.last_update_datetime like ?4) " +
+            "and v.app_id = ?5 " +
             "and v.last_update_datetime is not null ",
             nativeQuery = true
     )
-    List<VpnInfo> vpnReportView(Integer staffId, String location, String internetISP, String lastUpdatetime);
+    List<VpnInfo> vpnReportView(Integer staffId,
+                                String location,
+                                String internetISP,
+                                String lastUpdatetime,
+                                String appId);
 
 }
