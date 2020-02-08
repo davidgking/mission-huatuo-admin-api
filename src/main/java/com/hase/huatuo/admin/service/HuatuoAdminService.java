@@ -37,6 +37,9 @@ public class HuatuoAdminService {
 	@Autowired
 	private UserInfoRepository userInfoRepository;
 
+	@Autowired
+	private NotifySwitchRepository notifySwitchRepository;
+
 	/**
 	 * Query Vpn Info
 	 * @param map
@@ -154,5 +157,17 @@ public class HuatuoAdminService {
 
 	public StaffList getStaff(String staffId) {
 		return staffListRepository.getByStaffId(staffId);
+	}
+
+	public void deleteNotifySwitch(String appId) {
+		notifySwitchRepository.deleteById(appId);
+	}
+
+	public List<NotifySwitch> findAllNotifySwitch() {
+		return notifySwitchRepository.findAll();
+	}
+
+	public void saveNotifySwitch(NotifySwitch notifySwitch) {
+		notifySwitchRepository.save(notifySwitch);
 	}
 }
