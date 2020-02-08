@@ -40,6 +40,9 @@ public class HuatuoAdminService {
 	@Autowired
 	private NotifySwitchRepository notifySwitchRepository;
 
+	@Autowired
+	private HealthInfoHACNRepository healthInfoHACNRepository;
+
 	/**
 	 * Query Vpn Info
 	 * @param map
@@ -175,4 +178,18 @@ public class HuatuoAdminService {
 	public void saveNotifySwitch(NotifySwitch notifySwitch) {
 		notifySwitchRepository.save(notifySwitch);
 	}
+
+    public List<HealthInfoHACN> queryHealthHacn(Map<String,Object> map) {
+		Object staffId = map.get("staffId");
+		Object staffName = map.get("staffName");
+		String p1 = null;
+		if (staffId != null && !"".equals(String.valueOf(staffId).trim())){
+			p1 = String.valueOf(staffId);
+		}
+		String p2 = null;
+		if (staffName != null && !"".equals(String.valueOf(staffName).trim())){
+			p2 = "%"+String.valueOf(staffName)+"%";
+		}
+		return healthInfoHACNRepository.findAll(p1,p2);
+    }
 }

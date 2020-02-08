@@ -35,6 +35,17 @@ public class HuatuoAdminResource {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/healthHacn/fetchList")
+    @ApiOperation(value = "healthHacn", notes = "query healthHacn", httpMethod = "GET")
+    public ResponseEntity<AdminResponse> queryHealthHacn(@RequestParam Map<String,Object> map) {
+        List<HealthInfoHACN> list = huatuoAdminService.queryHealthHacn(map);
+        AdminResponse response = new AdminResponse();
+        response.setItems(list);
+        response.setTotal(list.size());
+        response.setCode(20000);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/notify/fetchList")
     @ApiOperation(value = "notifyStaff", notes = "list for notify", httpMethod = "GET")
     public ResponseEntity<AdminNotifyListResponse> queryNotifyStaff(@RequestParam Map<String,Object> map) {
