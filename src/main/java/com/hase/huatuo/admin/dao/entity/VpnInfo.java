@@ -74,7 +74,6 @@ public class VpnInfo {
     private String reporterStaffId;
     @Column(name = "last_update_datetime")
     private Date lastUpdateDatetime;
-
     @Column(name = "app_id")
     private String appId;
 
