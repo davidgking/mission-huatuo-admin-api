@@ -106,7 +106,7 @@ public class HuatuoAdminResource {
     @GetMapping("/userInfo/fecthList")
     @ApiOperation(value = "userInfoList", notes = "find all userInfo", httpMethod = "GET")
     public ResponseEntity<AdminResponse> findAllUser(@RequestParam Map<String,Object> map) {
-        List<UserInfo> newsByParms = huatuoAdminService.findAllUser();
+        List<UserInfo> newsByParms = huatuoAdminService.findAllUser(map);
         AdminResponse adminResponse = new AdminResponse();
         adminResponse.setItems(newsByParms);
         adminResponse.setTotal(newsByParms.size());
@@ -132,8 +132,8 @@ public class HuatuoAdminResource {
 
     @GetMapping("/notifySwitch/fecthList")
     @ApiOperation(value = "notifySwitchListy", notes = "find notifySwitch List", httpMethod = "GET")
-    public ResponseEntity<AdminResponse> findNotifySwitch() {
-        List<NotifySwitch> notifySwitchList = huatuoAdminService.findAllNotifySwitch();
+    public ResponseEntity<AdminResponse> findNotifySwitch(@RequestParam Map<String,Object> map) {
+        List<NotifySwitch> notifySwitchList = huatuoAdminService.findAllNotifySwitch(map);
         AdminResponse adminResponse = new AdminResponse();
         adminResponse.setItems(notifySwitchList);
         adminResponse.setTotal(notifySwitchList.size());

@@ -19,4 +19,6 @@ public interface NewsInfoRepository extends JpaRepository<NewsInfo, String> {
     @Modifying
     @Query("delete from NewsInfo where id = ?1")
     void deleteById(Long s);
+
+    List<NewsInfo> findAllByAppId(String appId);
 }

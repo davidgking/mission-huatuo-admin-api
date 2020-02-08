@@ -50,6 +50,7 @@ public class HuatuoAdminService {
 		Object location = map.get("location");
 		Object internetISP = map.get("internetISP");
 		Object lastUpatetime = map.get("lastUpatetime");
+		Object appId = map.get("appId");
 		VpnReportQueryRequest vpnReportQueryRequest = new VpnReportQueryRequest();
 		if (staffId != null && !"".equals(staffId)) {
 			vpnReportQueryRequest.setStaffId(Integer.parseInt(String.valueOf(staffId)));
@@ -67,7 +68,8 @@ public class HuatuoAdminService {
 		List<VpnInfo> vpnInfos = vpnInfoRepository.vpnReportView(vpnReportQueryRequest.getStaffId()
 				, vpnReportQueryRequest.getLocation(),
 				vpnReportQueryRequest.getInternetISP(),
-				vpnReportQueryRequest.getLastUpatetime());
+				vpnReportQueryRequest.getLastUpatetime(),
+				String.valueOf(appId));
 		return vpnInfos;
 	}
 
@@ -125,7 +127,8 @@ public class HuatuoAdminService {
 	 * @return
 	 */
 	public List<NewsInfo> findNewsByParms(Map<String,Object> map) {
-		return newsInfoRepository.findAll();
+		Object appId = map.get("appId");
+		return newsInfoRepository.findAllByAppId(String.valueOf(appId));
 	}
 
 	/**
@@ -146,8 +149,9 @@ public class HuatuoAdminService {
 	}
 
 
-	public List<UserInfo> findAllUser() {
-		return userInfoRepository.findAll();
+	public List<UserInfo> findAllUser(Map<String,Object> map) {
+		Object appId = map.get("appId");
+		return userInfoRepository.findAllByAppId(String.valueOf(appId));
 	}
 
 	@Transactional
@@ -163,8 +167,9 @@ public class HuatuoAdminService {
 		notifySwitchRepository.deleteById(appId);
 	}
 
-	public List<NotifySwitch> findAllNotifySwitch() {
-		return notifySwitchRepository.findAll();
+	public List<NotifySwitch> findAllNotifySwitch(Map<String, Object> map) {
+		Object appId = map.get("appId");
+		return notifySwitchRepository.findAllByAppId(String.valueOf(appId));
 	}
 
 	public void saveNotifySwitch(NotifySwitch notifySwitch) {

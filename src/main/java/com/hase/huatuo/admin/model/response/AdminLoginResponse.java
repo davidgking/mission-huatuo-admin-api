@@ -9,4 +9,5 @@ import lombok.Data;
 @Data
 public class AdminLoginResponse extends AdminResponse {
     private String token;
+    private String appId;
 }

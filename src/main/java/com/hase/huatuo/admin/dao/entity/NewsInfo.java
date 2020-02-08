@@ -34,4 +34,6 @@ public class NewsInfo {
     private String source;
     @Column
     private String enable;
+    @Column(name = "app_id")
+    private String appId;
 }
