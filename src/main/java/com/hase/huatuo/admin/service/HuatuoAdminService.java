@@ -100,11 +100,11 @@ public class HuatuoAdminService {
 		notify.setWechatPushEnable(notifyStaffAddRequest.getWechatPushEnable());
 		notifyRepository.save(notify);
 
-		StaffList staffList = new StaffList();
-		staffList.setStaffId(notifyStaffAddRequest.getStaffId());
-		staffList.setEmailAddress(notifyStaffAddRequest.getEmailAddress());
-		staffList.setMobileNum(notifyStaffAddRequest.getMobileNum());
-		staffListRepository.save(staffList);
+//		StaffList staffList = new StaffList();
+//		staffList.setStaffId(notifyStaffAddRequest.getStaffId());
+//		staffList.setEmailAddress(notifyStaffAddRequest.getEmailAddress());
+//		staffList.setMobileNum(notifyStaffAddRequest.getMobileNum());
+//		staffListRepository.save(staffList);
 	}
 
 	/**
@@ -150,5 +150,9 @@ public class HuatuoAdminService {
 	@Transactional
 	public void deleteUserInfo(String appId,String staffId) {
 		userInfoRepository.deleteByAppIdAndStaffId(appId,staffId);
+	}
+
+	public StaffList getStaff(String staffId) {
+		return staffListRepository.getByStaffId(staffId);
 	}
 }

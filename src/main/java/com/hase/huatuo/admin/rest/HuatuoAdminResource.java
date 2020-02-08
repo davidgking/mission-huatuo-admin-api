@@ -1,6 +1,7 @@
 package com.hase.huatuo.admin.rest;
 
 import com.hase.huatuo.admin.dao.entity.NewsInfo;
+import com.hase.huatuo.admin.dao.entity.StaffList;
 import com.hase.huatuo.admin.dao.entity.UserInfo;
 import com.hase.huatuo.admin.dao.view.NotifyStaffView;
 import com.hase.huatuo.admin.dao.entity.VpnInfo;
@@ -116,4 +117,19 @@ public class HuatuoAdminResource {
         return ResponseEntity.ok(adminResponse);
     }
 
+    @GetMapping("/userInfo/getStaff/{staffId}")
+    @ApiOperation(value = "getStaff", notes = "get MobileNum and Email", httpMethod = "GET")
+    public ResponseEntity<AdminUserResponse> getStaff(@PathVariable String staffId) {
+        AdminUserResponse adminResponse = new AdminUserResponse();
+        StaffList staffList = huatuoAdminService.getStaff(staffId);
+        if (staffList != null) {
+            adminResponse.setStaffId(staffId);
+            adminResponse.setMobileNum(staffList.getMobileNum());
+            adminResponse.setEmailAddress(staffList.getEmailAddress());
+        } else {
+            adminResponse.setMessage("Staff Id不存在");
+        }
+        adminResponse.setCode(20000);
+        return ResponseEntity.ok(adminResponse);
+    }
 }

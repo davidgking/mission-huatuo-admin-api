@@ -8,4 +8,6 @@ import com.hase.huatuo.admin.dao.entity.StaffList;
 @Repository
 public interface StaffListRepository extends JpaRepository<StaffList,String> {
 
+    StaffList getByStaffId(String staffId);
+
 }

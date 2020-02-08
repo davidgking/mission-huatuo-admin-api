@@ -12,4 +12,7 @@ public class AdminUserResponse extends AdminResponse{
     private String introduction;
     private String avatar;
     private String name;
+    private String staffId;
+    private String mobileNum;
+    private String emailAddress;
 }
