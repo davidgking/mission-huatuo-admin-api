@@ -37,6 +37,9 @@ public class HuatuoAdminService {
 	@Autowired
 	private UserInfoRepository userInfoRepository;
 
+	@Autowired
+	private NotifySwitchRepository notifySwitchRepository;
+
 	/**
 	 * Query Vpn Info
 	 * @param map
@@ -100,11 +103,11 @@ public class HuatuoAdminService {
 		notify.setWechatPushEnable(notifyStaffAddRequest.getWechatPushEnable());
 		notifyRepository.save(notify);
 
-		StaffList staffList = new StaffList();
-		staffList.setStaffId(notifyStaffAddRequest.getStaffId());
-		staffList.setEmailAddress(notifyStaffAddRequest.getEmailAddress());
-		staffList.setMobileNum(notifyStaffAddRequest.getMobileNum());
-		staffListRepository.save(staffList);
+//		StaffList staffList = new StaffList();
+//		staffList.setStaffId(notifyStaffAddRequest.getStaffId());
+//		staffList.setEmailAddress(notifyStaffAddRequest.getEmailAddress());
+//		staffList.setMobileNum(notifyStaffAddRequest.getMobileNum());
+//		staffListRepository.save(staffList);
 	}
 
 	/**
@@ -150,5 +153,21 @@ public class HuatuoAdminService {
 	@Transactional
 	public void deleteUserInfo(String appId,String staffId) {
 		userInfoRepository.deleteByAppIdAndStaffId(appId,staffId);
+	}
+
+	public StaffList getStaff(String staffId) {
+		return staffListRepository.getByStaffId(staffId);
+	}
+
+	public void deleteNotifySwitch(String appId) {
+		notifySwitchRepository.deleteById(appId);
+	}
+
+	public List<NotifySwitch> findAllNotifySwitch() {
+		return notifySwitchRepository.findAll();
+	}
+
+	public void saveNotifySwitch(NotifySwitch notifySwitch) {
+		notifySwitchRepository.save(notifySwitch);
 	}
 }
