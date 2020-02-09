@@ -154,7 +154,12 @@ public class HuatuoAdminService {
 
 	public List<UserInfo> findAllUser(Map<String,Object> map) {
 		Object appId = map.get("appId");
-		return userInfoRepository.findAllByAppId(String.valueOf(appId));
+		Object staffId = map.get("staffId");
+		if (staffId != null && !"".equals(String.valueOf(staffId).trim())) {
+			return userInfoRepository.findAllByAppIdAndStaffId(String.valueOf(appId),String.valueOf(staffId));
+		} else {
+			return userInfoRepository.findAllByAppId(String.valueOf(appId));
+		}
 	}
 
 	@Transactional
@@ -182,6 +187,9 @@ public class HuatuoAdminService {
     public List<HealthInfoHACN> queryHealthHacn(Map<String,Object> map) {
 		Object staffId = map.get("staffId");
 		Object staffName = map.get("staffName");
+		Object reportDate = map.get("reportDate");
+		Object healthStatus = map.get("healthStatus");
+		Object cityName = map.get("cityName");
 		String p1 = null;
 		if (staffId != null && !"".equals(String.valueOf(staffId).trim())){
 			p1 = String.valueOf(staffId);
@@ -190,6 +198,18 @@ public class HuatuoAdminService {
 		if (staffName != null && !"".equals(String.valueOf(staffName).trim())){
 			p2 = "%"+String.valueOf(staffName)+"%";
 		}
-		return healthInfoHACNRepository.findAll(p1,p2);
+		String p3 = null;
+		if (reportDate != null && !"".equals(String.valueOf(reportDate).trim())){
+			p3 = String.valueOf(reportDate)+"%";
+		}
+		String p4 = null;
+		if (healthStatus != null && !"".equals(String.valueOf(healthStatus).trim())){
+			p4 = String.valueOf(healthStatus);
+		}
+		String p5 = null;
+		if (cityName != null && !"".equals(String.valueOf(cityName).trim())){
+			p5 = String.valueOf(cityName);
+		}
+		return healthInfoHACNRepository.findAll(p1,p2,p3,p4,p5);
     }
 }

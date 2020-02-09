@@ -29,8 +29,14 @@ public interface HealthInfoHACNRepository extends JpaRepository<HealthInfoHACN,S
             "h.health_status\n" +
             "from health_info_hacn h  \n" +
             "where (?1 is null or h.staff_Id = ?1) and h.staff_Id is not null \n" +
-            "            and (?2 is null or h.staff_name like ?2) and h.staff_name is not null ",
+            "and (?2 is null or h.staff_name like ?2) and h.staff_name is not null " +
+            "and (?3 is null or h.report_date like ?3) and h.report_date is not null " +
+            "and (?4 is null or h.health_status = ?4) and h.health_status is not null " +
+            "and (?5 is null or h.city_short_name = ?5) and h.city_short_name is not null ",
         nativeQuery = true)
     List<HealthInfoHACN> findAll(String staffId,
-                                 String staffName);
+                                 String staffName,
+                                 String reportDate,
+                                 String healthStatus,
+                                 String cityName);
 }

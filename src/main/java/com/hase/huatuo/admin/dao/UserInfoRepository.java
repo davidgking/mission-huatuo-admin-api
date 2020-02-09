@@ -20,4 +20,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,String> {
     void deleteByAppIdAndStaffId(String appId,String staffId);
 
     List<UserInfo> findAllByAppId(String appId);
+
+    List<UserInfo> findAllByAppIdAndStaffId(String appId,String staffId);
 }
